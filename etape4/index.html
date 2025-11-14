@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TP4 - Étape 4 : Espace Résumé (Style conforme)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="table_container">
+    <table id="person_table">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Points</th>
+          <th>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- rempli dynamiquement -->
+      </tbody>
+    </table>
+
+    <!-- Ligne de résumé -->
+    <div id="summary_container">
+      <span id="summary_lines">0 ligne(s)</span>
+      <span id="summary_points">Totale point(s)= 0</span>
+    </div>
+
+    <!-- Boutons -->
+    <div id="container_btn">
+      <button id="btn_add">Ajouter</button>
+      <button id="btn_console">Console Tableau</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

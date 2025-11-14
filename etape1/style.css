@@ -1,0 +1,51 @@
+
+#table_container {
+  font-family: Calibri, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+table {
+  border-collapse: collapse;
+  width: 60%;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* En-tête */
+th {
+  background-color: #1976b2; 
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+
+}
+
+/* Cellules */
+td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+/* Espacement entre les lignes */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Classes de colonnes */
+.col_number {
+  width: 10%;
+}
+
+.col_text {
+  width: 25%;
+}
+
+.col_chkbox {
+  width: 10%;
+}
