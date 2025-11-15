@@ -1,91 +1,114 @@
-"use strict";
+"use strict"; 
 
-
-
+//let declaration (slide 51)
 let lignes = 0;
 let total_points = 0;
-let persons = [
-  { nom: "nom-1", prenom: "prenom-1", points: 5 },
-  { nom: "nom-2", prenom: "prenom-2", points: 10 },
-  { nom: "nom-3", prenom: "prenom-3", points: 15 }
+
+const persons = [
+    { nom: "nom-1", prenom: "prénom-1", points: 5 },
+    { nom: "nom-2", prenom: "prénom-2", points: 10 },
+    { nom: "nom-3", prenom: "prénom-3", points: 15 }
 ];
 
-//manipulation du DOM (slides 45-109)
 
-window.addEventListener("DOMContentLoaded", () => {
-  init();
+Init();
 
-  // event clic sur ajouter
-  document.getElementById("btn_add").addEventListener("click", () => {
-    doNewData();
-  });
-
-  // bouton xonsole
-  document.getElementById("btn_console").addEventListener("click", () => {
-    consoleTableau();
-  });
-});
-
-// utilisation des fonctions (slide 45)
-// utilisation des commentaires (slide 36)
-// utilisation des tableau (slide 38)
-
-function init() {
-  for (let p of persons) {
-    doInsert(p.nom, p.prenom, p.points);
-  }
+function Init() {
+    //loop for...of (slide 44)
+    for (let p of persons) {
+        doInsert(p.nom, p.prenom, p.points);
+    }
 }
 
 function doInsert(nom, prenom, points) {
-  lignes++;
-  total_points += points;
-  doInsertRowTable(lignes, nom, prenom, points);
-  update_summary();
+    lignes += 1;
+    total_points += points;
+    let num = lignes;
+    doInsertRowTable(num, nom, prenom, points);
+    update_summary();
 }
 
-// cree une ligne dans le tableau HTML
+
 function doInsertRowTable(num, nom, prenom, points) {
-  const tbody = document.querySelector("#person_table tbody");
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <td>${num}</td>
-    <td>${nom}</td>
-    <td>${prenom}</td>
-    <td>${points}</td>
-    <td><input type="checkbox"></td>
-  `;
-  tbody.appendChild(row);
+    //Récupérer l’élément tableau
+    const table = document.getElementById("studentTable");
+
+    //ligne de tableau
+    //createElement (slid 104)
+    const row = document.createElement("tr");
+
+    //Affecter à l’élément row la valeur "row" à son attribut "class"
+    //setAttribute (slid 105)
+    row.setAttribute("class", "row");
+
+    //Créer 5 éléments de type td (colonnes de tableau)
+    const col1 = document.createElement("td");
+    const col2 = document.createElement("td");
+    const col3 = document.createElement("td");
+    const col4 = document.createElement("td");
+    const col5 = document.createElement("td");
+    //remplir le contenu de chaque colonne
+    col1.innerText = num;
+    col2.innerText = nom;
+    col3.innerText = prenom;
+    col4.innerText = points;
+    col5.innerHTML = '<input type="checkbox" />';
+
+    //affectation des classes
+    col1.setAttribute("class", "col_number");
+    col2.setAttribute("class", "col_text");
+    col3.setAttribute("class", "col_text");
+    col4.setAttribute("class", "col_number");
+    col5.setAttribute("class", "col_chkbox");
+
+    //Rajouter les colonnes à la ligne
+    row.append(col1, col2, col3, col4, col5);
+
+    //Rajouter la ligne au tableau
+    table.appendChild(row);
 }
 
-// mettre a jour le texte du resume
 function update_summary() {
-  document.getElementById("summary_lines").textContent = `${lignes} ligne(s)`;
-  document.getElementById("summary_points").textContent = `Totale point(s)= ${total_points}`;
+    const element_lignes = document.getElementById("p1"); //getElementById (slide 61)
+    const element_points = document.getElementById("p3");
+    element_lignes.innerText = lignes + " ligne(s)";
+    element_points.innerText = "Total point(s)= " + total_points;
 }
 
-//gere l ajout de nouvelles donnees via les champs de saisie
+
+//console.log (slide 33)
+function ConsoleTableau() {
+    console.log(persons);
+}
+
 function doNewData() {
-  const nom = document.getElementById("input_nom").value.trim();
-  const prenom = document.getElementById("input_prenom").value.trim();
-  const points = Number(document.getElementById("input_points").value);
+    const elt_nom = document.getElementById("form_nom");
+    const elt_prenom = document.getElementById("form_prenom");
+    const elt_points = document.getElementById("form_points");
 
-  // Vérification basique des champs
-  if (nom === "" || prenom === "" || isNaN(points) || points < 0) {
-    alert("Veuillez remplir correctement tous les champs.");
-    return;
-  }
+    const nom = elt_nom.value.trim();
+    const prenom = elt_prenom.value.trim();
+    const points = parseInt(elt_points.value);
 
-  // Ajout dans le tableau et dans la liste JS
-  persons.push({ nom, prenom, points });
-  doInsert(nom, prenom, points);
+    //if statement (slide 24)
+    if (nom === "" || prenom === "" || Number.isNaN(points)) {
+        //alert (slide 116)
+        window.alert("Formulaire incomplet !");
+    } else {
+        doInsert(nom, prenom, points);
+        persons.push({ nom: nom, prenom: prenom, points: points });
 
-  // reinitialisation des champs
-  document.getElementById("input_nom").value = "";
-  document.getElementById("input_prenom").value = "";
-  document.getElementById("input_points").value = "";
+        elt_nom.value = "";
+        elt_prenom.value = "";
+        elt_points.value = "";
+    }
 }
 
-// Affiche le tableau dans la console
-function consoleTableau() {
-  console.table(persons);
-}
+
+
+//getElementById (slide 61)
+//onclick (slide 20)
+document.getElementById("consoleBtn").onclick = function () {
+    ConsoleTableau();
+};
+
