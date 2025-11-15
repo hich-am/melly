@@ -1,41 +1,34 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TP4 - Étape 4 : Espace Résumé (Style conforme)</title>
   <link rel="stylesheet" href="style.css" />
+  <title>CRUD</title>
 </head>
+
 <body>
   <div id="table_container">
-    <table id="person_table">
-      <thead>
-        <tr>
-          <th>N°</th>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Points</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- rempli dynamiquement -->
-      </tbody>
+    <table id="studentTable">
+      <tr>
+        <th>N°</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Points</th>
+        <th>Select</th>
+      </tr>
     </table>
 
-    <!-- Ligne de résumé -->
-    <div id="summary_container">
-      <span id="summary_lines">0 ligne(s)</span>
-      <span id="summary_points">Totale point(s)= 0</span>
+    <div id="container_summary">
+      <p id="p1">0 ligne (s)</p>
+      <p id="p2"></p>
+      <p id="p3">Total point (s)= 0</p>
     </div>
 
-    <!-- Boutons -->
-    <div id="container_btn">
-      <button id="btn_add">Ajouter</button>
-      <button id="btn_console">Console Tableau</button>
-    </div>
+    <button onclick="doInsert('nom', 'prenom', 10)">Ajouter</button>
+    <button id="consoleBtn">Console Tableau</button>
   </div>
-
+    <!-- external script (slides 24–27) -->
   <script src="script.js"></script>
 </body>
 </html>

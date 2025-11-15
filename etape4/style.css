@@ -1,61 +1,58 @@
-body {
+#table_container { 
+  margin: 50px auto; 
   font-family: Calibri, Arial, sans-serif;
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#table_container {
-  width: 70%;
-  margin: 40px auto;
-  text-align: center;
-}
-
-/* TABLEAU */
 table {
-  width: 100%;
   border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 6px 10px;
-  text-align: center;
+  width: 95%;
+  background-color: white;
 }
 
 th {
-  background-color: #0273B7;
-  color: #fff;
+  background-color: #1976b2;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
+td {
+  padding: 8px;
 }
 
-#summary_container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #E9E9E9;
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-  font-size: 14px;
-  margin-top: 0;
+.col_number,
+.col_checkbox {
+  text-align: center;
+  width: 60px;
 }
 
-/* BOUTONS */
-#container_btn {
-  margin-top: 8px;
+.col_text {
   text-align: left;
+  margin: 10;
 }
 
-button {
-  background-color: #e6e6e6;
-  border: 1px solid #999;
-  padding: 4px 10px;
-  margin-right: 4px;
-  font-size: 14px;
-  cursor: pointer;
+table, th, td {
+  border: 1px solid #cccccc;
 }
 
-button:hover {
-  background-color: #d9d9d9;
+#addRowBtn,
+#consoleBtn {
+  align-self: unset; 
+}
+
+#container_summary {
+  width: 91%;                    
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  background-color: #f7f7f7;      
+  padding: 10px 15px;
+  margin-top: 5px;  
+  border: 1px solid #cccccc; 
+}
+#container_summary p {
+  margin: 0;
 }
