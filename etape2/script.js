@@ -1,34 +1,47 @@
-"use strict"; // utilisation du mode strict (slide 51)
+"use strict"; 
 
+//slid 61 (getElementById)
+//slide 20 (onclick)
+document.getElementById("addRowBtn").onclick = function () {
+    doInsertRowTable(99, "nom", "prénom", 10);
+};
 
-//manipulation du DOM (slides 45-109)
-
-// attendre chargement dom
-window.addEventListener("DOMContentLoaded", () => {
-
-  
-  const btnAdd = document.getElementById("btn_add");
-  btnAdd.addEventListener("click", () => {
-    doInsertRowTable(99, "nom", "prenom", 10);
-  });
-});
-// utilisation des commentaires (slide 36)
-
-// utilisation d un tableau (slide 38)
-
-// utilisation d une fonction (slide 45)
 function doInsertRowTable(num, nom, prenom, points) {
-  const table = document.getElementById("person_table").getElementsByTagName("tbody")[0];
+    //Récupérer l’élément tableau
+    const table = document.getElementById("studentTable");
 
-  const newRow = document.createElement("tr");
+    //ligne de tableau
+    //createElement (slid 104)
+    const row = document.createElement("tr");
 
-  newRow.innerHTML = `
-    <td class="col_number">${num}</td>
-    <td class="col_text">${nom}</td>
-    <td class="col_text">${prenom}</td>
-    <td class="col_text">${points}</td>
-    <td class="col_chkbox"><input type="checkbox"></td>
-  `;
+    //Affecter à l’élément row la valeur "row" à son attribut "class"
+    //setAttribute (slid 105)
+    row.setAttribute("class", "row");
 
-  table.appendChild(newRow);
+    //Créer 5 éléments de type td (colonnes de tableau)
+    const col1 = document.createElement("td");
+    const col2 = document.createElement("td");
+    const col3 = document.createElement("td");
+    const col4 = document.createElement("td");
+    const col5 = document.createElement("td");
+    //remplir le contenu de chaque colonne
+    col1.innerText = num;
+    col2.innerText = nom;
+    col3.innerText = prenom;
+    col4.innerText = points;
+    col5.innerHTML = '<input type="checkbox" />';
+
+    //affectation des classes
+    col1.setAttribute("class", "col_number");
+    col2.setAttribute("class", "col_text");
+    col3.setAttribute("class", "col_text");
+    col4.setAttribute("class", "col_number");
+    col5.setAttribute("class", "col_chkbox");
+
+    //Rajouter les colonnes à la ligne
+    row.append(col1, col2, col3, col4, col5);
+
+    //Rajouter la ligne au tableau
+    table.appendChild(row);
 }
+
