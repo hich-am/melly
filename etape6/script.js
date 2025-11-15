@@ -1,121 +1,160 @@
-"use strict"; // utilisation du mode strict (slide 51)
+"use strict"; 
 
-// utilisation de LET (slide 51)
-
+//let declaration (slide 51)
 let lignes = 0;
 let total_points = 0;
-let persons = [
-  { nom: "nom-1", prenom: "prenom-1", points: 5 },
-  { nom: "nom-2", prenom: "prenom-2", points: 10 },
-  { nom: "nom-3", prenom: "prenom-3", points: 15 }
+
+const persons = [
+    { nom: "nom-1", prenom: "prénom-1", points: 5 },
+    { nom: "nom-2", prenom: "prénom-2", points: 10 },
+    { nom: "nom-3", prenom: "prénom-3", points: 15 }
 ];
 
-//manipulation du DOM (slides 45-109)
 
-window.addEventListener("DOMContentLoaded", () => {
-  init();
+Init();
 
-  document.getElementById("btn_add").addEventListener("click", () => {
-    doNewData();
-  });
-
-  document.getElementById("btn_console").addEventListener("click", () => {
-    consoleTableau();
-  });
-
-  document.getElementById("btn_del").addEventListener("click", () => {
-    deleteRow();
-  });
-});
-
-// utilisation des fonctions (slide 45)
-// utilisation des commentaires (slide 36)
-// utilisation des tableau (slide 38)
-
-function init() {
-  for (let p of persons) {
-    doInsert(p.nom, p.prenom, p.points);
-  }
+function Init() {
+    //loop for...of (slide 44)
+    for (let p of persons) {
+        doInsert(p.nom, p.prenom, p.points);
+    }
 }
 
 function doInsert(nom, prenom, points) {
-  lignes++;
-  total_points += points;
-  doInsertRowTable(lignes, nom, prenom, points);
-  update_summary();
+    lignes += 1;
+    total_points += points;
+    let num = lignes;
+    doInsertRowTable(num, nom, prenom, points);
+    update_summary();
 }
 
-// cree une ligne dans le tableau 
+
 function doInsertRowTable(num, nom, prenom, points) {
-  const tbody = document.querySelector("#person_table tbody");
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <td>${num}</td>
-    <td>${nom}</td>
-    <td>${prenom}</td>
-    <td>${points}</td>
-    <td><input type="checkbox"></td>
-  `;
-  tbody.appendChild(row);
+    //Récupérer l’élément tableau
+    const table = document.getElementById("studentTable");
+
+    //ligne de tableau
+    //createElement (slid 104)
+    const row = document.createElement("tr");
+
+    //Affecter à l’élément row la valeur "row" à son attribut "class"
+    //setAttribute (slid 105)
+    row.setAttribute("class", "row");
+
+    //Créer 5 éléments de type td (colonnes de tableau)
+    const col1 = document.createElement("td");
+    const col2 = document.createElement("td");
+    const col3 = document.createElement("td");
+    const col4 = document.createElement("td");
+    const col5 = document.createElement("td");
+    //remplir le contenu de chaque colonne
+    col1.innerText = num;
+    col2.innerText = nom;
+    col3.innerText = prenom;
+    col4.innerText = points;
+    col5.innerHTML = '<input type="checkbox" />';
+
+    //affectation des classes
+    col1.setAttribute("class", "col_number");
+    col2.setAttribute("class", "col_text");
+    col3.setAttribute("class", "col_text");
+    col4.setAttribute("class", "col_number");
+    col5.setAttribute("class", "col_chkbox");
+
+    //Rajouter les colonnes à la ligne
+    row.append(col1, col2, col3, col4, col5);
+
+    //Rajouter la ligne au tableau
+    table.appendChild(row);
 }
 
-// resume update
 function update_summary() {
-  document.getElementById("summary_lines").textContent = `${lignes} ligne(s)`;
-  document.getElementById("summary_points").textContent = `Totale point(s)= ${total_points}`;
+    const element_lignes = document.getElementById("p1"); //getElementById (slide 61)
+    const element_points = document.getElementById("p3");
+    element_lignes.innerText = lignes + " ligne(s)";
+    element_points.innerText = "Total point(s)= " + total_points;
 }
 
-// ajout de elements
+
+//console.log (slide 33)
+function ConsoleTableau() {
+    console.log(persons);
+}
+
 function doNewData() {
-  const nom = document.getElementById("input_nom").value.trim();
-  const prenom = document.getElementById("input_prenom").value.trim();
-  const points = Number(document.getElementById("input_points").value);
+    const elt_nom = document.getElementById("form_nom");
+    const elt_prenom = document.getElementById("form_prenom");
+    const elt_points = document.getElementById("form_points");
 
-  if (nom === "" || prenom === "" || isNaN(points) || points < 0) {
-    alert("Veuillez remplir correctement tous les champs !");
-    return;
-  }
+    const nom = elt_nom.value.trim();
+    const prenom = elt_prenom.value.trim();
+    const points = parseInt(elt_points.value);
 
-  persons.push({ nom, prenom, points });
-  doInsert(nom, prenom, points);
+    //if statement (slide 24)
+    if (nom === "" || prenom === "" || Number.isNaN(points)) {
+        //alert (slide 116)
+        window.alert("Formulaire incomplet !");
+    } else {
+        doInsert(nom, prenom, points);
+        persons.push({ nom: nom, prenom: prenom, points: points });
 
-  document.getElementById("input_nom").value = "";
-  document.getElementById("input_prenom").value = "";
-  document.getElementById("input_points").value = "";
-}
-
-
-function consoleTableau() {
-  console.table(persons);
-}
-
-// supprission dees lignes 
-function deleteRow() {
-  const tbody = document.querySelector("#person_table tbody");
-  const rows = Array.from(tbody.querySelectorAll("tr"));
-
-  // Indices des lignes à supprimer (dans le tableau persons)
-  const toDelete = [];
-
-  rows.forEach((row, index) => {
-    const checkbox = row.querySelector("input[type='checkbox']");
-    if (checkbox && checkbox.checked) {
-      // updatedu total 
-      const points = Number(row.children[3].textContent);
-      total_points -= points;
-
-      tbody.removeChild(row);
-      toDelete.push(index);
-      lignes--;
+        elt_nom.value = "";
+        elt_prenom.value = "";
+        elt_points.value = "";
     }
-  });
-
-  toDelete.reverse().forEach(i => persons.splice(i, 1));
-
-  // update les numéros
-  Array.from(tbody.querySelectorAll("tr")).forEach((row, i) => {
-    row.children[0].textContent = i + 1;
-  });
-
-  update_summary();
 }
+
+function deleteRow() {
+    // Étape 1:
+    if (lignes === 0) {
+        alert("Le tableau est vide !"); //alers (slide 116)
+        return;
+    }
+
+    //Étape 2:
+    const table = document.getElementById("studentTable");
+    const checkedBoxes = table.querySelectorAll(".col_chkbox input[type='checkbox']:checked");
+
+    //Étape 3
+    if (checkedBoxes.length === 0) {
+        alert("Sélectionnez au moins une ligne !");
+        return;
+    }
+
+    //Étape 4:
+    if (!confirm("Voulez-vous vraiment supprimer les lignes sélectionnées ?")) {
+        return;
+    }
+
+    //Étape 5:
+    const rows = Array.from(table.querySelectorAll("tr.row"));
+
+    //Étape 6: 
+    //for each (slide 44)
+    rows.forEach((row, index) => {
+        const checkbox = row.querySelector(".col_chkbox input[type='checkbox']");
+        if (checkbox.checked) {
+            const points = parseInt(row.cells[3].innerText);
+            total_points -= points;
+            lignes--;
+            table.removeChild(row);
+
+            const nom = row.cells[1].innerText;
+            const prenom = row.cells[2].innerText;
+            const personIndex = persons.findIndex(p => p.nom === nom && p.prenom === prenom && p.points === points);
+            if (personIndex !== -1) persons.splice(personIndex, 1);
+        }
+    });
+
+    //Étape 7: Update summary and alert
+    update_summary();
+    alert("Ligne(s) supprimée(s) avec succès !");
+}
+
+
+//getElementById (slide 61)
+//onclick (slide 20)
+document.getElementById("consoleBtn").onclick = function () {
+    ConsoleTableau();
+};
+
