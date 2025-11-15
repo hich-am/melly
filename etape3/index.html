@@ -1,35 +1,28 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TP4 - Étape 3 : Insertion à partir d’un tableau d’objets</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>CRUD</title>
 </head>
+
 <body>
   <div id="table_container">
-    <table id="person_table">
-      <thead>
-        <tr>
-          <th class="col_number">N°</th>
-          <th class="col_text">Nom</th>
-          <th class="col_text">Prénom</th>
-          <th class="col_text">Points</th>
-          <th class="col_chkbox">Sélection</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- le contenu sera genere dynamiquement par js -->
-      </tbody>
+    <table id="studentTable">
+      <tr>
+        <th>N°</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Points</th>
+        <th>Select</th>
+      </tr>
     </table>
 
-    <!-- Boutons de contrôle -->
-    <div id="container_btn">
-      <button id="btn_add">Ajouter</button>
-      <button id="btn_console">Console Tableau</button>
-    </div>
+    <button id="addRowBtn">Ajouter</button>
+    <button id="consoleBtn">Console Tableau</button>
   </div>
-
+    <!-- external script (slides 24–27) -->
   <script src="script.js"></script>
 </body>
 </html>

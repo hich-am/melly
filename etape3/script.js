@@ -1,64 +1,82 @@
-"use strict"; // utilisation du mode strict (slide 51)
+"use strict"; 
 
-let persons = [
-  { nom: "hicham", prenom: "mans", points: 10 },
-  { nom: "nadir", prenom: "benarmas", points: 15 },
-  { nom: "oumellal", prenom: "sihem", points: 20 }
-];
-
-// utilisation de let pour declarer les variables (slide 51)
+//let declaration (slide 51)
 let lignes = 0;
 
-//manipulation du DOM (slides 45-109)
-
-window.addEventListener("DOMContentLoaded", () => {
-  init();
-
-  document.getElementById("btn_add").addEventListener("click", () => {
-    doInsert("nom", "prenom", 10);
-  });
-
-  document.getElementById("btn_console").addEventListener("click", () => {
-    consoleTableau();
-  });
-});
+const persons = [
+    { nom: "nom-1", prenom: "prénom-1", points: 5 },
+    { nom: "nom-2", prenom: "prénom-2", points: 10 },
+    { nom: "nom-3", prenom: "prénom-3", points: 15 }
+];
 
 
-// utilisation des fonctions (slide 45)
-// utilisation des commentaires (slide 36)
-// utilisation des boucles (slide 44)
+Init();
 
-
-function init() {
-  for (let i = 0; i < persons.length; i++) {
-    let p = persons[i];
-    doInsert(p.nom, p.prenom, p.points);
-  }
+function Init() {
+    //loop for...of (slide 44)
+    for (let p of persons) {
+        doInsert(p.nom, p.prenom, p.points);
+    }
 }
 
-
 function doInsert(nom, prenom, points) {
-  lignes++; // incrémente le numéro de ligne (slide 26)
-  doInsertRowTable(lignes, nom, prenom, points);
+    lignes += 1;
+    let num = lignes;
+    doInsertRowTable(num, nom, prenom, points);
 }
 
 
 function doInsertRowTable(num, nom, prenom, points) {
-  const table = document.getElementById("person_table").getElementsByTagName("tbody")[0];
-  const newRow = document.createElement("tr");
+    //Récupérer l’élément tableau
+    const table = document.getElementById("studentTable");
 
-  newRow.innerHTML = `
-    <td class="col_number">${num}</td>
-    <td class="col_text">${nom}</td>
-    <td class="col_text">${prenom}</td>
-    <td class="col_text">${points}</td>
-    <td class="col_chkbox"><input type="checkbox"></td>
-  `;
+    //ligne de tableau
+    //createElement (slid 104)
+    const row = document.createElement("tr");
 
-  table.appendChild(newRow);
+    //Affecter à l’élément row la valeur "row" à son attribut "class"
+    //setAttribute (slid 105)
+    row.setAttribute("class", "row");
+
+    //Créer 5 éléments de type td (colonnes de tableau)
+    const col1 = document.createElement("td");
+    const col2 = document.createElement("td");
+    const col3 = document.createElement("td");
+    const col4 = document.createElement("td");
+    const col5 = document.createElement("td");
+    //remplir le contenu de chaque colonne
+    col1.innerText = num;
+    col2.innerText = nom;
+    col3.innerText = prenom;
+    col4.innerText = points;
+    col5.innerHTML = '<input type="checkbox" />';
+
+    //affectation des classes
+    col1.setAttribute("class", "col_number");
+    col2.setAttribute("class", "col_text");
+    col3.setAttribute("class", "col_text");
+    col4.setAttribute("class", "col_number");
+    col5.setAttribute("class", "col_chkbox");
+
+    //Rajouter les colonnes à la ligne
+    row.append(col1, col2, col3, col4, col5);
+
+    //Rajouter la ligne au tableau
+    table.appendChild(row);
+}
+
+//console.log (slide 33)
+function ConsoleTableau() {
+    console.log(persons);
 }
 
 
-function consoleTableau() {
-  console.table(persons);
-}
+//getElementById (slide 61)
+//onclick (slide 20)
+document.getElementById("addRowBtn").onclick = function () {
+    doInsertRowTable(99, "nom", "prénom", 10);
+};
+document.getElementById("consoleBtn").onclick = function () {
+    ConsoleTableau();
+};
+
